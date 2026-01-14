@@ -1,0 +1,82 @@
+{
+  "nav": {
+    "games": "Games",
+    "collection": "My Collection",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "hello": "Hello"
+  },
+  "auth": {
+    "email": "Email address",
+    "password": "Password",
+    "username": "Username",
+    "loginTitle": "Sign in to your account",
+    "registerTitle": "Create a new account",
+    "loginButton": "Sign in",
+    "registerButton": "Register",
+    "noAccount": "Don't have an account? Register",
+    "hasAccount": "Already have an account? Sign in",
+    "loginError": "Invalid credentials",
+    "registerError": "Registration failed",
+    "errorOccurred": "An error occurred. Please try again."
+  },
+  "games": {
+    "title": "Browse Games",
+    "search": "Search for a game...",
+    "filters": {
+      "allPlatforms": "All Platforms",
+      "allRarities": "All Rarities"
+    },
+    "sort": {
+      "az": "A-Z",
+      "newest": "Newest",
+      "oldest": "Oldest"
+    },
+    "details": "Details",
+    "endResults": "End of results.",
+    "noGames": "No games found."
+  },
+  "gameDetails": {
+    "notFound": "Game not found.",
+    "addToCollection": "Add to my collection",
+    "removeFromCollection": "Remove from my collection",
+    "communityReviews": "Community Reviews",
+    "reviews": "reviews",
+    "leaveReview": "Leave a review",
+    "yourRating": "Your rating",
+    "yourComment": "Your comment",
+    "commentPlaceholder": "What did you think of this game?",
+    "submitReview": "Submit review",
+    "submitting": "Submitting...",
+    "noReviews": "No reviews yet. Be the first!",
+    "publishedOn": "Published on",
+    "addError": "Cannot add this game to collection: missing game ID",
+    "error": "Error",
+    "reviewError": "Failed to post review"
+  },
+  "collection": {
+    "title": "My Collection",
+    "empty": "You haven't added any games yet.",
+    "browseGames": "Browse Games",
+    "added": "Added",
+    "view": "View",
+    "remove": "Remove",
+    "confirmRemove": "Are you sure you want to remove this game from your collection?"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back"
+  },
+  "rarity": {
+    "Commun": "Common",
+    "Rare": "Rare",
+    "Très Rare": "Very Rare",
+    "na": "N/A"
+  }
+}

@@ -4,25 +4,25 @@
   </div>
 
   <div v-else-if="!game" class="text-center py-20 text-red-500">
-      Game not found.
+      {{ $t('gameDetails.notFound') }}
   </div>
 
   <div v-else class="bg-gray-800 rounded-xl shadow-2xl overflow-hidden max-w-6xl mx-auto my-8">
-      
+
       <div class="w-full h-[500px] bg-gray-900 relative flex justify-center items-center overflow-hidden">
-          
-          <div class="absolute inset-0 bg-cover bg-center opacity-30 blur-lg scale-110" 
+
+          <div class="absolute inset-0 bg-cover bg-center opacity-30 blur-lg scale-110"
                :style="{ backgroundImage: `url(${game.imageUrl})` }">
           </div>
 
-          <img :src="game.imageUrl" 
-               :alt="game.titre" 
+          <img :src="game.imageUrl"
+               :alt="game.titre"
                class="relative z-10 h-full w-full object-contain shadow-2xl"
           >
       </div>
 
       <div class="p-8">
-          
+
           <div class="flex flex-col md:flex-row justify-between items-start border-b border-gray-700 pb-6 mb-8">
               <div>
                   <h1 class="text-5xl font-bold text-white mb-4">{{ game.titre }}</h1>
@@ -32,14 +32,14 @@
                       <span>{{ game.anneeSortie }}</span>
                   </div>
               </div>
-              
+
               <span :class="getRarityColor(game.rarete)" class="mt-4 md:mt-0 px-6 py-2 rounded-full text-lg font-bold bg-opacity-20 border-2 border-current">
-                  {{ game.rarete }}
+                  {{ game.rarete ? $t(`rarity.${game.rarete}`) : $t('rarity.na') }}
               </span>
           </div>
 
           <div class="mb-12">
-              <button 
+              <button
                 @click="toggleCollection"
                 :class="isInCollection ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'"
                 class="w-full md:w-auto px-8 py-4 rounded-lg font-bold text-white text-lg transition-all transform hover:scale-105 flex justify-center items-center space-x-3 shadow-lg"
@@ -47,24 +47,24 @@
               >
                   <span v-if="actionLoading" class="animate-spin h-6 w-6 border-2 border-white border-t-transparent rounded-full"></span>
                   <span>
-                      {{ isInCollection ? 'Retirer de ma collection' : 'Ajouter à ma collection' }}
+                      {{ isInCollection ? $t('gameDetails.removeFromCollection') : $t('gameDetails.addToCollection') }}
                   </span>
               </button>
           </div>
 
           <div v-if="game.gameId" class="bg-gray-900 rounded-xl p-6 md:p-8">
                 <div class="flex items-center justify-between mb-8">
-                    <h3 class="text-3xl font-bold text-white">Avis de la communauté</h3>
+                    <h3 class="text-3xl font-bold text-white">{{ $t('gameDetails.communityReviews') }}</h3>
                     <div v-if="gameReviews.length > 0" class="px-4 py-2 bg-indigo-600 rounded-full text-white font-bold shadow">
-                        ★ {{ averageRating }} / 5 <span class="text-indigo-200 text-sm ml-2">({{ gameReviews.length }} avis)</span>
+                        ★ {{ averageRating }} / 5 <span class="text-indigo-200 text-sm ml-2">({{ gameReviews.length }} {{ $t('gameDetails.reviews') }})</span>
                     </div>
                 </div>
 
                 <div class="bg-gray-800 p-6 rounded-lg mb-8 border border-gray-700">
-                    <h4 class="text-xl font-bold text-white mb-4">Laisser un avis</h4>
+                    <h4 class="text-xl font-bold text-white mb-4">{{ $t('gameDetails.leaveReview') }}</h4>
                     <form @submit.prevent="submitReview">
                         <div class="mb-4">
-                            <label class="block text-gray-400 text-sm font-bold mb-2">Votre note</label>
+                            <label class="block text-gray-400 text-sm font-bold mb-2">{{ $t('gameDetails.yourRating') }}</label>
                             <div class="flex space-x-2">
                                 <label v-for="n in 5" :key="n" class="cursor-pointer hover:scale-110 transition-transform">
                                     <input type="radio" :value="n" v-model="newReview.note" class="sr-only peer">
@@ -73,30 +73,30 @@
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label class="block text-gray-400 text-sm font-bold mb-2">Votre commentaire</label>
-                            <textarea 
-                                    v-model="newReview.commentaire" 
+                            <label class="block text-gray-400 text-sm font-bold mb-2">{{ $t('gameDetails.yourComment') }}</label>
+                            <textarea
+                                    v-model="newReview.commentaire"
                                     required
-                                    rows="3" 
+                                    rows="3"
                                     class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-gray-600 placeholder-gray-500"
-                                    placeholder="Qu'avez-vous pensé de ce jeu ?"
+                                    :placeholder="$t('gameDetails.commentPlaceholder')"
                             ></textarea>
                         </div>
                         <div class="text-right">
-                            <button 
-                                    type="submit" 
+                            <button
+                                    type="submit"
                                     :disabled="submittingReview"
                                     class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                    {{ submittingReview ? 'Envoi...' : 'Publier l\'avis' }}
+                                    {{ submittingReview ? $t('gameDetails.submitting') : $t('gameDetails.submitReview') }}
                             </button>
                         </div>
                     </form>
                 </div>
 
                 <div class="space-y-4">
-                    <div v-if="gameReviews.length === 0" class="text-gray-500 italic text-center py-8">Aucun avis pour le moment. Soyez le premier !</div>
-                    
+                    <div v-if="gameReviews.length === 0" class="text-gray-500 italic text-center py-8">{{ $t('gameDetails.noReviews') }}</div>
+
                     <div v-for="review in gameReviews" :key="review.reviewId" class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-gray-600 transition-colors">
                         <div class="flex justify-between items-start mb-3">
                             <div class="flex items-center gap-3">
@@ -113,7 +113,7 @@
                             {{ review.commentaire }}
                         </p>
                         <div class="text-xs text-gray-500 text-right">
-                            Publié le {{ new Date(review.datePublication).toLocaleDateString() }}
+                            {{ $t('gameDetails.publishedOn') }} {{ new Date(review.datePublication).toLocaleDateString() }}
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,9 @@ import { useRoute } from 'vue-router';
 import { useGamesStore } from '../stores/games';
 import { useCollectionStore } from '../stores/collection';
 import { useReviewsStore } from '../stores/reviews';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const route = useRoute();
 const gamesStore = useGamesStore();
 const collectionStore = useCollectionStore();
@@ -145,16 +147,15 @@ onMounted(async () => {
     const paramId = route.params.id;
     const id = parseInt(paramId);
     game.value = await gamesStore.getGameById(id);
-    
+
     if (collectionStore.collection.length === 0) {
         await collectionStore.fetchCollection();
     }
-    
-    // Fetch all reviews if game exists
+
     if(game.value && game.value.gameId) {
         await reviewsStore.fetchReviews();
     }
-    
+
     loading.value = false;
 });
 
@@ -172,17 +173,17 @@ const averageRating = computed(() => {
 const isInCollection = computed(() => {
     if (!game.value) return false;
     if (!game.value.gameId) return false;
-    return collectionStore.isInCollection(game.value.gameId); 
+    return collectionStore.isInCollection(game.value.gameId);
 });
 
 const toggleCollection = async () => {
     if (!game.value || !game.value.gameId) {
-        alert('Impossible d\'ajouter ce jeu à la collection: ID de jeu manquant');
+        alert(t('gameDetails.addError'));
         return;
     }
-    
+
     actionLoading.value = true;
-    
+
     try {
         if (isInCollection.value) {
             await collectionStore.removeFromCollection(game.value.gameId);
@@ -194,7 +195,7 @@ const toggleCollection = async () => {
     } catch (e) {
         console.error(e);
         const msg = e.response?.data?.message || e.response?.data || e.message;
-        alert(`Erreur: ${msg}`);
+        alert(`${t('gameDetails.error')}: ${msg}`);
     } finally {
         actionLoading.value = false;
     }
@@ -203,22 +204,21 @@ const toggleCollection = async () => {
 const submitReview = async () => {
     if(!newReview.value.commentaire) return;
     submittingReview.value = true;
-    
-    try {
 
+    try {
         await reviewsStore.addReview({
             GameId: game.value.gameId,
             Note: newReview.value.note,
             Commentaire: newReview.value.commentaire,
         });
-        
+
         await reviewsStore.fetchReviews();
-        
+
         newReview.value = { note: 5, commentaire: '' };
     } catch (e) {
         console.error(e);
         const msg = e.response?.data?.message || e.response?.data || e.message;
-        alert(`Failed to post review: ${msg}`);
+        alert(`${t('gameDetails.reviewError')}: ${msg}`);
     } finally {
         submittingReview.value = false;
     }
@@ -232,5 +232,4 @@ const getRarityColor = (rarity) => {
         default: return 'text-gray-400 bg-gray-400';
     }
 };
-
 </script>

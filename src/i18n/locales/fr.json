@@ -1,0 +1,82 @@
+{
+  "nav": {
+    "games": "Jeux",
+    "collection": "Ma Collection",
+    "login": "Connexion",
+    "register": "Inscription",
+    "logout": "Déconnexion",
+    "hello": "Bonjour"
+  },
+  "auth": {
+    "email": "Adresse email",
+    "password": "Mot de passe",
+    "username": "Nom d'utilisateur",
+    "loginTitle": "Connectez-vous à votre compte",
+    "registerTitle": "Créer un nouveau compte",
+    "loginButton": "Se connecter",
+    "registerButton": "S'inscrire",
+    "noAccount": "Pas encore de compte ? Inscrivez-vous",
+    "hasAccount": "Déjà un compte ? Connectez-vous",
+    "loginError": "Identifiants invalides",
+    "registerError": "L'inscription a échoué",
+    "errorOccurred": "Une erreur est survenue. Veuillez réessayer."
+  },
+  "games": {
+    "title": "Parcourir les Jeux",
+    "search": "Rechercher un jeu...",
+    "filters": {
+      "allPlatforms": "Toutes Plateformes",
+      "allRarities": "Toutes Raretés"
+    },
+    "sort": {
+      "az": "A-Z",
+      "newest": "Plus récents",
+      "oldest": "Plus anciens"
+    },
+    "details": "Détails",
+    "endResults": "Fin des résultats.",
+    "noGames": "Aucun jeu trouvé."
+  },
+  "gameDetails": {
+    "notFound": "Jeu non trouvé.",
+    "addToCollection": "Ajouter à ma collection",
+    "removeFromCollection": "Retirer de ma collection",
+    "communityReviews": "Avis de la communauté",
+    "reviews": "avis",
+    "leaveReview": "Laisser un avis",
+    "yourRating": "Votre note",
+    "yourComment": "Votre commentaire",
+    "commentPlaceholder": "Qu'avez-vous pensé de ce jeu ?",
+    "submitReview": "Publier l'avis",
+    "submitting": "Envoi...",
+    "noReviews": "Aucun avis pour le moment. Soyez le premier !",
+    "publishedOn": "Publié le",
+    "addError": "Impossible d'ajouter ce jeu à la collection: ID de jeu manquant",
+    "error": "Erreur",
+    "reviewError": "Échec de la publication de l'avis"
+  },
+  "collection": {
+    "title": "Ma Collection",
+    "empty": "Vous n'avez pas encore ajouté de jeux.",
+    "browseGames": "Parcourir les Jeux",
+    "added": "Ajouté",
+    "view": "Voir",
+    "remove": "Retirer",
+    "confirmRemove": "Êtes-vous sûr de vouloir retirer ce jeu de votre collection ?"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "back": "Retour"
+  },
+  "rarity": {
+    "Commun": "Commun",
+    "Rare": "Rare",
+    "Très Rare": "Très Rare",
+    "na": "N/A"
+  }
+}
