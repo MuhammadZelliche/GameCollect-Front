@@ -1,34 +1,34 @@
 <template>
   <div>
     <div class="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
-        <h1 class="text-3xl font-bold text-white">Browse Games</h1>
-        
+        <h1 class="text-3xl font-bold text-white">{{ $t('games.title') }}</h1>
+
         <div class="flex flex-wrap gap-4 w-full md:w-auto">
-             <input 
-                v-model="searchQuery" 
+             <input
+                v-model="searchQuery"
                 @input="onSearchInput"
-                type="text" 
-                placeholder="Rechercher un jeu..." 
+                type="text"
+                :placeholder="$t('games.search')"
                 class="flex-grow px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-indigo-500"
             >
 
             <select v-model="selectedPlatform" @change="onFilterChange" class="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-indigo-500">
-                <option value="All">Toutes Plateformes</option>
+                <option value="All">{{ $t('games.filters.allPlatforms') }}</option>
                 <option value="PC (Windows)">PC (Windows)</option>
                 <option value="Web Browser">Web Browser</option>
             </select>
 
             <select v-model="selectedRarity" @change="onFilterChange" class="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-indigo-500">
-                <option value="All">Toutes Raretés</option>
-                <option value="Commun">Commun</option>
-                <option value="Rare">Rare</option>
-                <option value="Très Rare">Très Rare</option>
+                <option value="All">{{ $t('games.filters.allRarities') }}</option>
+                <option value="Commun">{{ $t('rarity.Commun') }}</option>
+                <option value="Rare">{{ $t('rarity.Rare') }}</option>
+                <option value="Très Rare">{{ $t('rarity.Très Rare') }}</option>
             </select>
 
              <select v-model="sortOption" @change="onFilterChange" class="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-indigo-500">
-                <option value="title">A-Z</option>
-                <option value="year-desc">Plus récents</option>
-                <option value="year-asc">Plus anciens</option>
+                <option value="title">{{ $t('games.sort.az') }}</option>
+                <option value="year-desc">{{ $t('games.sort.newest') }}</option>
+                <option value="year-asc">{{ $t('games.sort.oldest') }}</option>
             </select>
         </div>
     </div>
@@ -43,9 +43,9 @@
                     <span>{{ game.anneeSortie }}</span>
                 </div>
                 <div class="mt-4 flex justify-between items-center">
-                     <span :class="getRarityColor(game.rarete)" class="px-2 py-1 text-xs rounded-full bg-opacity-20">{{ game.rarete || 'N/A' }}</span>
+                     <span :class="getRarityColor(game.rarete)" class="px-2 py-1 text-xs rounded-full bg-opacity-20">{{ game.rarete ? $t(`rarity.${game.rarete}`) : $t('rarity.na') }}</span>
                      <router-link :to="`/games/${game.gameId}`" class="text-indigo-400 hover:text-indigo-300 text-sm font-medium">
-                        Détails &rarr;
+                        {{ $t('games.details') }} &rarr;
                      </router-link>
                 </div>
             </div>
@@ -55,22 +55,21 @@
     <div ref="sentinel" class="h-10 mt-10 flex justify-center items-center">
         <div v-if="gamesStore.loading" class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-500"></div>
         <div v-else-if="!gamesStore.hasMore && gamesStore.games.length > 0" class="text-gray-500">
-            Fin des résultats.
+            {{ $t('games.endResults') }}
         </div>
         <div v-else-if="gamesStore.games.length === 0 && !gamesStore.loading" class="text-gray-500">
-            Aucun jeu trouvé.
+            {{ $t('games.noGames') }}
         </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, watch } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useGamesStore } from '../stores/games';
 
 const gamesStore = useGamesStore();
 
-// --- State ---
 const searchQuery = ref('');
 const selectedPlatform = ref('All');
 const selectedRarity = ref('All');
@@ -102,8 +101,6 @@ const loadData = async (reset = false) => {
     }
 };
 
-// --- Events ---
-
 const onSearchInput = () => {
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(() => {
@@ -115,20 +112,15 @@ const onFilterChange = () => {
     loadData(true);
 };
 
-// --- Lifecycle & Scroll ---
-
 onMounted(() => {
-
     loadData(true);
 
     observer = new IntersectionObserver((entries) => {
-
         if (entries[0].isIntersecting && gamesStore.hasMore && !gamesStore.loading) {
-
-            loadData(false); 
+            loadData(false);
         }
     }, { rootMargin: '100px' });
-    
+
     if (sentinel.value) {
         observer.observe(sentinel.value);
     }
@@ -138,7 +130,6 @@ onUnmounted(() => {
     if (observer) observer.disconnect();
 });
 
-// --- Utils ---
 const getRarityColor = (rarity) => {
     switch(rarity) {
         case 'Commun': return 'text-green-400 bg-green-400';

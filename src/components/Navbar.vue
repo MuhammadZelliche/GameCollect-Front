@@ -8,20 +8,21 @@
           </div>
           <div v-if="authStore.isAuthenticated" class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
-              <router-link to="/games" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" active-class="bg-gray-900 text-white">Games</router-link>
-              <router-link to="/collection" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" active-class="bg-gray-900 text-white">My Collection</router-link>
+              <router-link to="/games" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" active-class="bg-gray-900 text-white">{{ $t('nav.games') }}</router-link>
+              <router-link to="/collection" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" active-class="bg-gray-900 text-white">{{ $t('nav.collection') }}</router-link>
             </div>
           </div>
         </div>
         <div class="hidden md:block">
-          <div class="ml-4 flex items-center md:ml-6">
+          <div class="ml-4 flex items-center md:ml-6 space-x-4">
+            <LanguageSwitcher />
             <div v-if="authStore.isAuthenticated" class="flex items-center space-x-4">
-               <span class="text-gray-300 text-sm">Hello, {{ authStore.user?.username }}</span>
-               <button @click="logout" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</button>
+               <span class="text-gray-300 text-sm">{{ $t('nav.hello') }}, {{ authStore.user?.username }}</span>
+               <button @click="logout" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">{{ $t('nav.logout') }}</button>
             </div>
             <div v-else class="flex space-x-4">
-                <router-link to="/login" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</router-link>
-                <router-link to="/register" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-md text-sm font-medium">Register</router-link>
+                <router-link to="/login" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">{{ $t('nav.login') }}</router-link>
+                <router-link to="/register" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-md text-sm font-medium">{{ $t('nav.register') }}</router-link>
             </div>
           </div>
         </div>
@@ -33,6 +34,7 @@
 <script setup>
 import { useAuthStore } from '../stores/auth';
 import { useRouter } from 'vue-router';
+import LanguageSwitcher from './LanguageSwitcher.vue';
 
 const authStore = useAuthStore();
 const router = useRouter();
